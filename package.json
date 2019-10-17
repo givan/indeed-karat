@@ -1,0 +1,30 @@
+{
+  "name": "indeed-karat",
+  "version": "1.0.0",
+  "description": "Solving board games with Node",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha ./spec/**/*.js",
+    "start": "node server.js",
+    "coverage": "nyc npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/givan/indeed-karat.git"
+  },
+  "author": "George Ivanov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/givan/indeed-karat/issues"
+  },
+  "homepage": "https://github.com/givan/indeed-karat#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-like": "^1.1.1",
+    "mocha": "^6.2.1",
+    "nyc": "^14.1.1"
+  }
+}
