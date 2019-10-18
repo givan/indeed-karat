@@ -32,6 +32,18 @@ app.get("/isReachable", (req, res) => {
     res.json({ isReachable });
 });
 
+app.get("/parallel/start", (req, res) => {
+    const count = Number.parseInt(req.query.count || "10");
+
+    board.calculateParallel(count)
+        .then(({ sum }) => {
+            res.json({ calculatedCount : sum });
+        })
+        .catch((err) => {
+            res.status(400).json(JSON.stringify(err));
+        });
+});
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server liseting on port: ${PORT}...`);

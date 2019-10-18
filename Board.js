@@ -80,6 +80,45 @@ class Board {
     return possibleMoves;
   }
 
+  calculateParallel(count) {
+    return new Promise((resolve, reject) => {
+      let allParallelPromises = [];
+      let currentVal = 0;
+      while (currentVal < count) {
+        const newPromise = new Promise((resolve, reject) => {
+          setInterval((val) => {
+            // wait for 200 * currentVal ms and resolve
+            resolve(val);
+          }, currentVal * 200, currentVal);
+        });
+
+        allParallelPromises.push(newPromise);
+
+        currentVal++;
+      }
+
+      // wait for all promises to come back
+      Promise.all(allParallelPromises)
+        .then((results) => {
+          let sum = 0;
+
+          if (Array.isArray(results)) {
+            sum = results.reduce((prevVal, currVal) => {
+              return prevVal + currVal;
+            })
+          }
+          else {
+            sum = results;
+          }
+
+          resolve({ sum });
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  }
+
   _isUpMoveValid(rowIdx, colIdx) {
     return (rowIdx >= 1 && this._board[rowIdx - 1][colIdx] == 0);
   }

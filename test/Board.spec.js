@@ -5,31 +5,31 @@ const expect = chai.expect;
 
 describe("Board class", () => {
     var boardData = [
-        [0,  0,  0, -1, -1],
-        [0,  0, -1,  0,  0],
-        [0, -1,  0, -1,  0],
-        [0,  0, -1,  0,  0],
-        [0,  0,  0,  0,  0],
-        [0,  0,  0,  0,  0],
-        [0,  0,  0,  0,  0],
-      ];      
+        [0, 0, 0, -1, -1],
+        [0, 0, -1, 0, 0],
+        [0, -1, 0, -1, 0],
+        [0, 0, -1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+    ];
 
     var boardData1 = [
-        [ 0,  0,  0, 0, -1 ],
-        [ 0, -1, -1, 0,  0 ],
-        [ 0,  0,  0, 0,  0 ],
-        [ 0, -1,  0, 0,  0 ],
-        [ 0,  0,  0, 0,  0 ],
-        [ 0,  0,  0, 0,  0 ],
+        [0, 0, 0, 0, -1],
+        [0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, -1, 0, 0, 0],
+        [0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0],
     ];
 
     var boardData2 = [
-        [  0,  0,  0, 0, -1 ],
-        [  0, -1, -1, 0,  0 ],
-        [  0,  0,  0, 0,  0 ],
-        [ -1, -1,  0, 0,  0 ],
-        [  0, -1,  0, 0,  0 ],
-        [  0, -1,  0, 0,  0 ],
+        [0, 0, 0, 0, -1],
+        [0, -1, -1, 0, 0],
+        [0, 0, 0, 0, 0],
+        [-1, -1, 0, 0, 0],
+        [0, -1, 0, 0, 0],
+        [0, -1, 0, 0, 0],
     ];
 
     var start1 = [3, 1];
@@ -108,7 +108,7 @@ describe("Board class", () => {
 
     it('will determine if endpoint is reachable using board1 and endpoint1', () => {
         let board1 = new Board(boardData1);
-        
+
         const isReachable = board1.isReachable(end1);
         expect(isReachable).to.be.true;
     });
@@ -118,5 +118,19 @@ describe("Board class", () => {
 
         const isReachable = board2.isReachable(end2);
         expect(isReachable).to.be.false;
+    });
+
+    it('will make X many parallel calls and return the total count of workers involved', (done) => {
+        let board2 = new Board(boardData2);
+        const numParallelJobs = 4;
+        const expectedSum = 6; // 0 + 1 + 2 + 3 (any positive values less than 4)
+        board2.calculateParallel(numParallelJobs)
+            .then(({ sum }) => {
+                expect(sum).to.be.an('number').an.equal(expectedSum);
+                done();
+            })
+            .catch((err) => {
+                done(err);
+            });
     });
 });
